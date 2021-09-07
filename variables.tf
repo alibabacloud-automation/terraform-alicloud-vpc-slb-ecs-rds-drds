@@ -188,12 +188,6 @@ variable "vswitch_id" {
   default     = ""
 }
 
-variable "security_group_ids" {
-  description = "A list of security group ids to associate with."
-  type        = list(string)
-  default     = []
-}
-
 variable "drds_instance_charge_type" {
   description = "The instance charge type of DRDS."
   type        = string
