@@ -26,7 +26,7 @@ resource "alicloud_slb_load_balancer" "default" {
 }
 
 resource "alicloud_instance" "default" {
-  availability_zone          = var.zone_id
+  availability_zone          = var.availability_zone
   instance_name              = var.name
   security_groups            = [alicloud_security_group.default.id]
   vswitch_id                 = var.vswitch_id

@@ -10,12 +10,6 @@ variable "description" {
   default     = "tf-vpc-slb-ecs-rds-drds-description"
 }
 
-variable "zone_id" {
-  description = "The specification of zone msg."
-  type        = string
-  default     = "cn-hangzhou-e"
-}
-
 variable "cidr_block" {
   description = "The specification of the vpc cidr block."
   type        = string
@@ -70,12 +64,6 @@ variable "category" {
   default     = "cloud_efficiency"
 }
 
-variable "security_ips" {
-  description = "The specification of the security ips."
-  type        = list(string)
-  default     = ["127.0.0.1"]
-}
-
 variable "engine" {
   description = "The specification of the engine."
   type        = string
@@ -92,40 +80,6 @@ variable "rds_instance_type" {
   description = "The specification of the rds instance type."
   type        = string
   default     = "rds.mysql.s2.large"
-}
-
-variable "redis_engine_version" {
-  description = "The specification of the redis engine version."
-  type        = string
-  default     = "4.0"
-}
-
-variable "redis_instance_name" {
-  description = "The specification of the redis instance name."
-  type        = string
-  default     = "tf-test-redis_name"
-}
-variable "redis_instance_type" {
-  description = "The specification of the redis instance type."
-  type        = string
-  default     = "Redis"
-}
-variable "redis_instance_class" {
-  description = "The specification of the redis instance class."
-  type        = string
-  default     = "redis.master.large.default"
-}
-
-variable "redis_appendonly" {
-  description = "The specification of the redis instance class."
-  type        = string
-  default     = "redis.master.large.default"
-}
-
-variable "redis_lazyfree-lazy-eviction" {
-  description = "The specification of the redis instance class."
-  type        = string
-  default     = "redis.master.large.default"
 }
 
 variable "instance_storage" {
@@ -179,7 +133,7 @@ variable "eip_internet_charge_type" {
 variable "availability_zone" {
   description = "The available zone to launch modules."
   type        = string
-  default     = ""
+  default     = "cn-hangzhou-e"
 }
 
 variable "vswitch_id" {
