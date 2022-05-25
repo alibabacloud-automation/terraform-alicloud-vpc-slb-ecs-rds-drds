@@ -1,25 +1,25 @@
 variable "name" {
   description = "The specification of module name."
   type        = string
-  default     = "tf-vpc-slb-ecs-rds-drds"
+  default     = ""
 }
 
 variable "description" {
   description = "The specification of module description."
   type        = string
-  default     = "tf-vpc-slb-ecs-rds-drds-description"
+  default     = ""
 }
 
 variable "cidr_block" {
   description = "The specification of the vpc cidr block."
   type        = string
-  default     = "172.16.0.0/16"
+  default     = ""
 }
 
 variable "instance_type" {
   description = "The specification of the instance type."
   type        = string
-  default     = "ecs.n4.large"
+  default     = ""
 }
 
 variable "system_disk_category" {
@@ -31,19 +31,19 @@ variable "system_disk_category" {
 variable "system_disk_name" {
   description = "The specification of the system disk name."
   type        = string
-  default     = "system_disk"
+  default     = ""
 }
 
 variable "system_disk_description" {
   description = "The specification of the system disk description."
   type        = string
-  default     = "system_disk_description"
+  default     = ""
 }
 
 variable "image_id" {
   description = "The specification of the image id."
   type        = string
-  default     = "ubuntu_18_04_64_20G_alibase_20190624.vhd"
+  default     = ""
 }
 
 variable "internet_max_bandwidth_out" {
@@ -115,7 +115,7 @@ variable "slb_spec" {
 variable "slb_tags_info" {
   description = "The specification of the slb tags info."
   type        = string
-  default     = "create for internet"
+  default     = ""
 }
 
 variable "eip_bandwidth" {
@@ -133,7 +133,7 @@ variable "eip_internet_charge_type" {
 variable "availability_zone" {
   description = "The available zone to launch modules."
   type        = string
-  default     = "cn-hangzhou-e"
+  default     = ""
 }
 
 variable "vswitch_id" {
@@ -158,4 +158,16 @@ variable "drds_specification" {
   description = "The instance specification type of DRDS."
   type        = string
   default     = "drds.sn1.4c8g.8C16G"
+}
+
+variable "data_disks_name" {
+  description = "The specification of data disks name."
+  type        = string
+  default     = ""
+}
+
+variable "data_disks_description" {
+  description = "The specification of data disks description."
+  type        = string
+  default     = ""
 }
