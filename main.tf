@@ -19,8 +19,8 @@ resource "alicloud_slb_load_balancer" "default" {
   load_balancer_name = var.name
   address_type       = var.slb_address_type
   load_balancer_spec = var.slb_spec
-  vswitch_id         = var.vswitch_id
-  tags               = {
+  vswitch_id         = var.vswitch_id != "" ? var.vswitch_id : alicloud_vswitch.default.id
+  tags = {
     info = var.slb_tags_info
   }
 }
@@ -29,7 +29,7 @@ resource "alicloud_instance" "default" {
   availability_zone          = var.availability_zone
   instance_name              = var.name
   security_groups            = [alicloud_security_group.default.id]
-  vswitch_id                 = var.vswitch_id
+  vswitch_id                 = var.vswitch_id != "" ? var.vswitch_id : alicloud_vswitch.default.id
   instance_type              = var.instance_type
   system_disk_category       = var.system_disk_category
   system_disk_name           = var.system_disk_name
@@ -37,17 +37,17 @@ resource "alicloud_instance" "default" {
   image_id                   = var.image_id
   internet_max_bandwidth_out = var.internet_max_bandwidth_out
   data_disks {
-    name        = var.name
+    name        = var.data_disks_name != "" ? var.data_disks_name : var.name
     size        = var.ecs_size
     category    = var.category
-    description = var.description
+    description = var.data_disks_description != "" ? var.data_disks_description : var.description
     encrypted   = true
   }
 }
 
 resource "alicloud_db_instance" "default" {
   instance_name        = var.name
-  vswitch_id           = var.vswitch_id
+  vswitch_id           = var.vswitch_id != "" ? var.vswitch_id : alicloud_vswitch.default.id
   engine               = var.engine
   engine_version       = var.engine_version
   instance_type        = var.rds_instance_type
@@ -60,7 +60,7 @@ resource "alicloud_drds_instance" "default" {
   description          = var.description
   instance_charge_type = var.drds_instance_charge_type
   zone_id              = var.availability_zone
-  vswitch_id           = alicloud_vswitch.default.id
+  vswitch_id           = var.vswitch_id != "" ? var.vswitch_id : alicloud_vswitch.default.id
   instance_series      = var.drds_instance_series
   specification        = var.drds_specification
 }
