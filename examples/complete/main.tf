@@ -1,17 +1,22 @@
 provider "alicloud" {
-  region = "cn-beijing"
+  region = "ap-southeast-5"
 }
+
+data "alicloud_db_zones" "default" {
+  engine         = "MySQL"
+  engine_version = "5.6"
+}
+
 data "alicloud_instance_types" "default" {
-
-}
-
-data "alicloud_zones" "default" {
-
+  availability_zone    = data.alicloud_db_zones.default.zones[0].id
+  cpu_core_count       = 2
+  memory_size          = 8
+  instance_type_family = "ecs.g9i"
 }
 
 data "alicloud_images" "default" {
-  owners     = "system"
-  name_regex = "^centos_6"
+  most_recent   = true
+  instance_type = data.alicloud_instance_types.default.instance_types[0].id
 }
 
 data "alicloud_db_instance_classes" "default" {
@@ -26,7 +31,7 @@ module "complete" {
   cidr_block = "172.16.0.0/16"
 
   # resource alicloud_vswitch
-  availability_zone = data.alicloud_zones.default.zones.0.id
+  availability_zone = data.alicloud_db_zones.default.zones[0].id
 
   #resource alicloud_slb_load_balancer
   slb_address_type = "intranet"
@@ -34,21 +39,21 @@ module "complete" {
   slb_tags_info    = var.slb_tags_info
 
   # resource alicloud_instance
-  instance_type              = data.alicloud_instance_types.default.instance_types.0.id
-  system_disk_category       = "cloud_efficiency"
+  instance_type              = data.alicloud_instance_types.default.instance_types[0].id
+  system_disk_category       = "cloud_essd"
   system_disk_name           = var.system_disk_name
   system_disk_description    = var.system_disk_description
-  image_id                   = data.alicloud_images.default.images.0.id
+  image_id                   = data.alicloud_images.default.images[0].id
   internet_max_bandwidth_out = var.internet_max_bandwidth_out
   data_disks_name            = "data_disks_name"
   ecs_size                   = 1200
-  category                   = "cloud_efficiency"
+  category                   = "cloud_essd"
   data_disks_description     = "tf-vpc-slb-ecs-rds-drds-description"
 
   # resource alicloud_db_instance
   engine               = "MySQL"
   engine_version       = "5.6"
-  rds_instance_type    = data.alicloud_db_instance_classes.default.instance_classes.1.instance_class
+  rds_instance_type    = data.alicloud_db_instance_classes.default.instance_classes[1].instance_class
   instance_storage     = var.instance_storage
   instance_charge_type = var.instance_charge_type
   monitoring_period    = var.monitoring_period

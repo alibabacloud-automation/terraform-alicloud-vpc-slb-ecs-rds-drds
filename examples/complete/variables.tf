@@ -1,5 +1,5 @@
 variable "name" {
-  description = ""
+  description = "The name of the resources"
   type        = string
   default     = "tf-testacc-drds-ecs"
 }

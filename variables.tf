@@ -118,18 +118,6 @@ variable "slb_tags_info" {
   default     = ""
 }
 
-variable "eip_bandwidth" {
-  description = "The specification of the eip bandwidth."
-  type        = string
-  default     = "10"
-}
-
-variable "eip_internet_charge_type" {
-  description = "The specification of the eip internet charge type."
-  type        = string
-  default     = "PayByBandwidth"
-}
-
 variable "availability_zone" {
   description = "The available zone to launch modules."
   type        = string
